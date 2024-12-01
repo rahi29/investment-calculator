@@ -7,11 +7,13 @@ import UserInput from "./components/UserInput"
 
 function App() {
   const [userinput, setuserinput] = useState({
-    InitialInvestment: 100,
-    AnnualInvestment: 500,
-    ExpectedReturn: 600,
-    Duration: 30,
+    initialInvestment: 100,
+    annualInvestment: 500,
+    expectedReturn: 600,
+    duration: 30,
   });
+
+  const InputIsValid = userinput.duration >= 1;
 
   function handlechange(inputidentifier, newValue) {
     setuserinput((prevValue) => {
@@ -24,8 +26,9 @@ function App() {
   return (
     <div>
       <Header />
-      <UserInput onchange ={handlechange} userinput={userinput}/>
-      <Results userInput={userinput}/>
+      <UserInput onChange ={handlechange} userinput={userinput}/>
+      {!InputIsValid && <p className="center">Please enter a duration greater than zero</p>}
+      {InputIsValid && <Results userInput={userinput}/>}
     </div>
     
   )
